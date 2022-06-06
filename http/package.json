@@ -1,0 +1,25 @@
+{
+  "name": "http-server-example",
+  "version": "1.0.0",
+  "description": "example hhtp-server for biso-0105-18",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon index.js"
+  },
+  "keywords": [
+    "node",
+    "http",
+    "http-server",
+    "mirea"
+  ],
+  "author": "leoska",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mongodb": "^4.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

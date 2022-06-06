@@ -1,0 +1,34 @@
+version: '3.1'
+
+networks:
+  biso-network:
+    external: false
+
+services:
+  http-server:
+    build: ./http
+    hostname: http-node-server
+    restart: "no"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./http/index.js:/app/index.js:ro
+      - ./http/settings.json:/app/settings.json:ro
+      - ./src:/app/src:ro
+    ports:
+      - "8080:8080"
+    networks:
+      - biso-network
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:4.4.6
+    hostname: mongodb
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./mongodb:/data/db:rw
+    ports:
+      - "127.0.0.1:27018:27017"
+    networks:
+      - biso-network
