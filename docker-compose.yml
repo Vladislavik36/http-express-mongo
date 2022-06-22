@@ -10,10 +10,9 @@ services:
     hostname: http-node-server
     restart: "no"
     volumes:
-      - /etc/localtime:/etc/localtime:ro
       - ./http/index.js:/app/index.js:ro
       - ./http/settings.json:/app/settings.json:ro
-      - ./src:/app/src:ro
+      - ./http:/app/src:ro
     ports:
       - "8080:8080"
     networks:
@@ -32,3 +31,18 @@ services:
       - "127.0.0.1:27018:27017"
     networks:
       - biso-network
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - biso-network
+    depends_on:
+      - mongodb
+      - http-server
+    volumes:
+      - ./rabbitmq/data/:/var/lib/rabbitmq/
+      - ./rabbitmq/log/:/var/log/rabbitmq
